@@ -1,0 +1,11 @@
+{% extends 'userhome.html' %}
+{% block user %}
+<h2 class="bg-warning text-center">UPDATE BIO</h2>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table table-dark">
+        {{form.as_table}}
+    </table>
+    <p><button class="btn btn-success">UPDATE</button></p>
+</form>
+{% endblock user %}        

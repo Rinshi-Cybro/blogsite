@@ -1,0 +1,37 @@
+{% extends 'userhome.html' %}
+{% block user %}
+<h3 class="bg-info text-light text-center">My Blogs</h3>
+<div>
+    {% for i in data %}
+    <div class="card mt-3 bg-light">
+        {% if i.image %}
+        <img src="{{i.image.url}}" alt="blog-image">
+        {% endif %}
+        <div class="card-body">
+            <p class="text-light">Posted By:{{i.author.first_name}} {{i.author.last_name}}</p>
+            <h1 class="card-title">{{i.title}}</h1>
+            <div class="card-content">
+                {{i.content}}
+            </div>
+            <p>Posted On: {{i.date}}</p>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'add-like' i.id %}" class="btn btn-outline-success mt-3"><span class="material-symbols-outlined">thumb_up</span>
+                <span class="basdge badge-danger">
+                    {{i.liked_cnt}}</span></a>
+                    <button data-toggle="collapse" class="btn btn-warning" data-target="#demo{{i.id}}">Comments</button>
+                    <div id="demo{{i.id}}" class="collapse">
+        </div>
+        <h4 class="bg-success">Comments</h4>
+        {% for c in cmnts %}
+        {% if c.blog.id == i.id %}
+        <ul class="list-group"><li class="list-group-item"><b>{{c.user}}</b>{{c.comment}}</li></ul>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+</div>
+{% endfor %}
+</div>
+{% endblock user %}
+

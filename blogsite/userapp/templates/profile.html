@@ -1,0 +1,55 @@
+{% extends 'userhome.html' %}
+{% block user %}
+{% if messages %}
+    {% for msg in messages %}
+     {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    
+     <div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{msg}}</strong>
+    </div>
+    {% endif %}
+
+    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{msg}}</strong>
+    </div>
+     {%endif%}
+    {% endfor %}
+  {% endif %}
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <div class="card mt-3">
+        <div class="card-header text-success">My Profile</div>
+        {% if request.user.users %}
+
+        <img src="{{request.user.users.propic.url}}" alt="image" class="card-img-top">
+
+        {% endif %}
+
+        <div class="card-body">
+            <p>First Name: <b>{{request.user.first_name}}</p></b>
+            <p>Last Name: <b>{{request.user.last_name}}</p></b>
+            <p>User Name: <b>{{request.user.username}}</p></b>
+            <p>Email ID: <b>{{request.user.email}}</p></b>
+        </div>
+        {% if request.user.users %}
+        <div class="card-footer">
+            <p>Gender:<b>{{request.user.users.gender}}</b></p>
+            <p>Phone:<b>{{request.user.users.phone}}</b></p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="col-4">
+    {% if request.user.users %}
+        <a href="{% url 'update-bio' request.user.users.id %}" class="btn btn-success mt-3">UPDATE BIO</a>
+    {% else %}
+        <a href="{% url 'addbio' %}"  class="btn btn-info mt-3">ADD BIO</a>
+    {% endif %}
+    <p> <a href="{% url 'change-password'%}" class="btn btn-warning mt-3">Reset Password</a></p>
+</div>
+</div>
+{% endblock user %}
